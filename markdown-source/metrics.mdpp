@@ -128,8 +128,8 @@ kubectl get pods -o wide
 Next, deploy a test tool (if you prefer, you can use any other tool that have `curl` and `grep`):
 
 ```console
-kubectl create deploy multitool --image praqma/network-multitool
-kubectl exec -it <multitool container> -- bash
+kubectl create deploy multitool --image wbitt/network-multitool
+kubectl exec -it `kubectl get pods -l app=multitool --output=jsonpath={.items..metadata.name}` -- bash
 ```
 
 Inside the test tool, run `curl` against the metrics scrape endpoint defined by
