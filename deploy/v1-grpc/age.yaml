@@ -3,42 +3,43 @@ kind: Deployment
 metadata:
   labels:
     app: sentences
-    mode: sentence
-  name: sentences
+    mode: age
+  name: age-grpc
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: sentences
-      mode: sentence
+      mode: age
   template:
     metadata:
       labels:
         app: sentences
-        mode: sentence
+        mode: age
     spec:
       containers:
       - image: ghcr.io/michaelvl/istio-katas@sha256:9ec280c27e4cfc88cef63866a35652e1e6238b3cbbbf4a46246343392310a31f
-        name: sentences
+        name: age
+        args:
+        - /usr/src/app-grpc/sentences.py
         env:
         - name: "SENTENCE_MODE"
-          value: "sentence"
+          value: "age"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
     app: sentences
-    mode: sentence
-  name: sentences
+    mode: age
+  name: age
 spec:
   ports:
   - port: 5000
     protocol: TCP
     targetPort: 5000
-    #appProtocol: http
   selector:
     app: sentences
-    mode: sentence
-  type: NodePort
+    mode: age
+  type: ClusterIP
 

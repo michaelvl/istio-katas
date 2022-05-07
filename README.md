@@ -12,13 +12,13 @@ access to a Kubernetes cluster with Istio, Kiali and Jaeger tracing.
 - [Canary Deployments](canary-deployment.md)
 - [Network Delay Investigations - Simple](request-delays.md)
 - [Network Delay Investigations - Larger Application Graph](request-delays-larger-graph.md)
-- WIP: Network Delay Investigations with Jaeger
+- :construction: WIP: Network Delay Investigations with Jaeger
 - [A Tour of the Istio Metrics](metrics.md)
 
 ### Designing and Securing the Mesh
 
 - [Getting Traffic into the Mesh with Ingress Gateways](getting-traffic-into-mesh.md)
-- Getting Traffic out of the Mesh
+- [:construction: WIP: Getting Traffic out of the Mesh](egress-gw.md)
 - [Multiple Teams and Separation of Duties](multi-teams.md)
 - Controlling Load Balancing
 - [Locality/Topology Aware Load Balancing and Failover](locality-aware-load-balancing.md)
@@ -31,6 +31,10 @@ access to a Kubernetes cluster with Istio, Kiali and Jaeger tracing.
 ### Improving Applications
 
 - Circuit Breakers
+
+### Using gRPC
+
+- [:construction: WIP: Using gRPC](using-grpc.md)
 
 ### Architectural Patterns
 

@@ -14,7 +14,7 @@ spec:
         app: multitool
     spec:
       containers:
-      - image: praqma/network-multitool
+      - image: ghcr.io/michaelvl/istio-katas@sha256:9ec280c27e4cfc88cef63866a35652e1e6238b3cbbbf4a46246343392310a31f
         name: network-multitool
       affinity:
         podAntiAffinity: 

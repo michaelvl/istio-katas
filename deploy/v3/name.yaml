@@ -20,7 +20,7 @@ spec:
         version: v3
     spec:
       containers:
-      - image: michaelvl/sentences:v1
+      - image: ghcr.io/michaelvl/istio-katas@sha256:9ec280c27e4cfc88cef63866a35652e1e6238b3cbbbf4a46246343392310a31f
         name: name
         env:
         - name: "SENTENCE_MODE"

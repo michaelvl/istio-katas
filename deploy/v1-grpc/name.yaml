@@ -3,42 +3,46 @@ kind: Deployment
 metadata:
   labels:
     app: sentences
-    mode: sentence
-  name: sentences
+    mode: name
+  name: name-grpc-v1
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: sentences
-      mode: sentence
+      mode: name
+      version: v1
   template:
     metadata:
       labels:
         app: sentences
-        mode: sentence
+        mode: name
+        version: v1
     spec:
       containers:
       - image: ghcr.io/michaelvl/istio-katas@sha256:9ec280c27e4cfc88cef63866a35652e1e6238b3cbbbf4a46246343392310a31f
-        name: sentences
+        name: name
+        args:
+        - /usr/src/app-grpc/sentences.py
         env:
         - name: "SENTENCE_MODE"
-          value: "sentence"
+          value: "name"
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
     app: sentences
-    mode: sentence
-  name: sentences
+    mode: name
+    version: v1
+  name: name-v1
 spec:
   ports:
   - port: 5000
     protocol: TCP
     targetPort: 5000
-    #appProtocol: http
   selector:
     app: sentences
-    mode: sentence
-  type: NodePort
-
+    mode: name
+    version: v1
+  type: ClusterIP
