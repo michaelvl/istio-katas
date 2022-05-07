@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.github.michaelvl.istio-katas.name";
+option java_outer_classname = "NameProto";
+option objc_class_prefix = "name";
+
+package name;
+
+service Name {
+  rpc GetName (NameRequest) returns (NameReply) {}
+}
+
+message NameRequest {
+  int32 unused = 1;
+}
+
+message NameReply {
+  string name = 1;
+}

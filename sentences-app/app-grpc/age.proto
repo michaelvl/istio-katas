@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.github.michaelvl.istio-katas.age";
+option java_outer_classname = "AgeProto";
+option objc_class_prefix = "age";
+
+package age;
+
+service Age {
+  rpc GetAge (AgeRequest) returns (AgeReply) {}
+}
+
+message AgeRequest {
+  int32 unused = 1;
+}
+
+message AgeReply {
+  int32 age = 1;
+}
