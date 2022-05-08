@@ -21,4 +21,4 @@ COPY --from=builder /usr/src/app-grpc/name_pb2.py /usr/src/app-grpc/name_pb2_grp
 EXPOSE 5000
 
 ENTRYPOINT ["python"]
-CMD ["/usr/src/app/sentences.py"]
+CMD ["/usr/src/app/app.py"]
