@@ -164,18 +164,18 @@ def get_sentence():
         p = float(random.randint(0,100))/100.0
         if p < authentication_bug_probability:
             logging.warning('Simulating authentication bug (p={}) - adding wrong header'.format(p))
-            hdrs['Authorization'] = auth_z_bug_value
+            hdrs['authorization'] = auth_z_bug_value
         else:
-            hdrs['Authorization'] = 'something-valid'
-        logging.warning('Forwarding headers {}'.format(hdrs))
-        logging.warning('...using age url {}'.format(age_svc_url))
+            hdrs['authorization'] = 'something-valid'
+        metadata = tuple([(k,v) for k,v in hdrs.items()])
+        logging.warning('Forwarding metadata (headers) {}'.format(metadata))
         with grpc.insecure_channel(age_svc_url) as channel:
             stub = age_pb2_grpc.AgeStub(channel)
-            response = stub.GetAge(age_pb2.AgeRequest(unused=42))
+            response = stub.GetAge(age_pb2.AgeRequest(unused=42), metadata=metadata)
             age = str(response.age)
         with grpc.insecure_channel(name_svc_url) as channel:
             stub = name_pb2_grpc.NameStub(channel)
-            response = stub.GetName(name_pb2.NameRequest(unused=42))
+            response = stub.GetName(name_pb2.NameRequest(unused=42), metadata=metadata)
             name = str(response.name)
         m_requests.labels('sentence').inc()
     return '{} is {} years'.format(name, age)
