@@ -14,7 +14,7 @@ spec:
         app: multitool
     spec:
       containers:
-      - image: ghcr.io/michaelvl/istio-katas@sha256:9ec280c27e4cfc88cef63866a35652e1e6238b3cbbbf4a46246343392310a31f
+      - image: ghcr.io/michaelvl/istio-katas@sha256:430d3a01a502c2b13af2619ad41f2247e6e46282e1c100db4f27c917b2867555
         name: network-multitool
         readinessProbe:
           exec:

@@ -4,10 +4,10 @@ set -e
 
 ARG_PROTO=${1:-"http"}
 ARG_PATH=${2:-""}
+INGRESS_GW_LABEL=${3:-"app=istio-ingressgateway"}
 
 CURL_OPTS=""
 
-INGRESS_GW_LABEL="app=istio-ingressgateway"
 if [ $ARG_PROTO == "https+mtls" ]; then
   PROTO="https"
   PORT=443

@@ -3,15 +3,69 @@
 
 # Blue/green deployments using gRPC
 
-First, deploy version `v1` of the test application, using the gRPC variant:
+First, deploy version `v1` and `v2` of the test application, using the gRPC variant:
 
 ```console
 kubectl apply -f deploy/v1-grpc
+kubectl apply -f deploy/v2-grpc
 ```
 
+```console
+scripts/loop-query.sh
+```
+
+Next, open Kiali and inspect the service topology as shown below. Note the
+**display settings** in the left side - adjust your settings to match those
+shown. Also, note that the traffic routed to `name-v1` and `name-v2` are
+approximately equally distributed. 
+
+![Canary Traffic in Kiali](images/kiali-grpc-blue-green-w-labels-1-anno.png)
+
+The load balancing we are seeing are ordinary Kubernetes service load balancing.
+
+Next, we create an Istio
+[VirtualService](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
+that:
+
+- Identify different versions based on Kubernetes labels using a [Destination
+  Rule](https://istio.io/latest/docs/reference/config/networking/destination-rule).
+
+- Route traffic to different versions based on the value of the HTTP header `x-test` (similarly to the [Blue/green deployments](blue-green-deployment.md) exercise).
+
+The DestinationRule and VirtualService that use Kubernetes labels for workload
+definition look like this:
+
+!INCLUDECODE "deploy/virtual-service-label-based.yaml" (yaml)
+
+Create the resources:
+
+```console
+kubectl apply -f deploy/virtual-service-label-based.yaml
+```
+
+If we observe the result in Kiali, we see that all our traffic is now routed to
+`name-v1` because the `query-loop.sh` command we are using is not adding an
+`x-test` header. We also see, that Kiali indicates that routing is being
+affected by a `VirtualService`:
+
+![Canary Traffic in Kiali](images/kiali-blue-green-w-labels-2-anno.png)
+
+In another shell, run the following to continuously query the sentence service
+version `name-v2`:
+
+```console
+scripts/loop-query.sh 'x-test: use-v2'
+```
+
+With this we now observe in Kiali, that traffic is approximately evenly
+distributed between the two versions:
+
+![Canary Traffic in Kiali](images/kiali-blue-green-w-labels-3-anno.png)
 
 # Cleanup
 
 ```console
 kubectl delete -f deploy/v1-grpc
+kubectl delete -f deploy/v2-grpc
+kubectl delete -f deploy/virtual-service-label-based.yaml
 ```
