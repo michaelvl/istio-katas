@@ -148,11 +148,12 @@ def get_sentence():
     return '{} is {} years'.format(name, age)
 
 def terminate(signal,frame):
-  print("Terminating: %s" % datetime.datetime.now())
+  logging.warning("Terminating: %s" % datetime.datetime.now())
   sys.exit(0)
 
 if __name__ == '__main__':
     signal.signal(signal.SIGTERM, terminate)
+    logging.warning('Installed SIGTERM handler')
 
     host = "0.0.0.0"
     port = 5000
