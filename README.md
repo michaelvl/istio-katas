@@ -94,3 +94,7 @@ application and thus configurable for different test purposes.  Much of the
 configuration is through environment variables. The most important environment
 variable is `SENTENCE_MODE` which define whether the application is running in
 `age`, `name` or `sentences` mode.
+
+### Links
+
+- [Knative katas](https://github.com/MichaelVL/katas-katas)
