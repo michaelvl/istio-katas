@@ -52,23 +52,7 @@ To configure ingress through a gateway we need to define two resources:
 
 The [Gateway](https://istio.io/latest/docs/reference/config/networking/gateway/) definition found in `deploy/mesh-in/gateway.yaml` looks like this:
 
-```yaml
-apiVersion: networking.istio.io/v1beta1
-kind: Gateway
-metadata:
-  name: sentences
-spec:
-  selector:
-    app: istio-ingressgateway
-    istio: ingressgateway
-  servers:
-  - port:
-      number: 80
-      name: http
-      protocol: HTTP
-    hosts:
-    - "sentences.example.com"
-```
+!INCLUDECODE "deploy/mesh-in/gateway.yaml" (yaml)
 
 here, the selectors are the labels we saw earlier on the ingress gateway PODs,
 i.e. this Gateway definition applies to the PODs of the `istio-ingressgateway`
