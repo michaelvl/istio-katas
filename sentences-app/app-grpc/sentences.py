@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os
+import os, sys, signal
 import flask
 import prometheus_client
 import datetime, time
@@ -180,8 +180,13 @@ def get_sentence():
         m_requests.labels('sentence').inc()
     return '{} is {} years'.format(name, age)
 
-if __name__ == '__main__':
+def terminate(signal,frame):
+  print("Terminating: %s" % datetime.datetime.now())
+  sys.exit(0)
 
+if __name__ == '__main__':
+    signal.signal(signal.SIGTERM, terminate)
+    print('xx')
     host = "0.0.0.0"
 
     m_requests = prometheus_client.Counter('sentence_requests_total',
