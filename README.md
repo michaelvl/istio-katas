@@ -88,6 +88,8 @@ calls the two other through HTTP requests and formats the final sentences. This
 is deployed to Kubernetes using three Deployments - typically with names like
 `age`, `name` and `sentences`.
 
+![Sentences overview](images/sentences-overview.png)
+
 The Python source for the application can be found
 [here](sentences-app/app/app.py). Note that the application is a 'test'
 application and thus configurable for different test purposes.  Much of the
